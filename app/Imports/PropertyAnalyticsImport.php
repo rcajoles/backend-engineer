@@ -28,14 +28,14 @@ class PropertyAnalyticsImport implements ToCollection, WithHeadingRow
                     $data[$key] = $value;
                 } else if ($key == 'analytic_type_id' && $value) {
                     $data[$key] = $value;
-                    // dd($key, $value);
+
                 } else if ($key == 'value' && $value) {
                     $data[$key] = $value;
                 }
 
             }
 
-            if (count($data) > 0) {
+            if (count($data) >= 3) {
                 PropertyAnalytic::create($data);
             }
         }
