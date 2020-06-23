@@ -29,10 +29,17 @@ Route::prefix('property')->group(function () {
     Route::get('/{id}', 'API\PropertyController@show');
     Route::post('/', 'API\PropertyController@store');
 
+
     Route::prefix('analytic')->group(function () {
 
         Route::get('/{id}', 'API\PropertyAnalyticController@show');
         Route::put('/{id}', 'API\PropertyAnalyticController@update');
     });
+
+    Route::prefix('summary')->group(function () {
+
+        Route::post('all', 'API\PropertyController@getAllSummary');
+    });
+
 
 });
