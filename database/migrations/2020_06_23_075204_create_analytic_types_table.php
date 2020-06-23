@@ -17,7 +17,7 @@ class CreateAnalyticTypesTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('units')->nullable();
-            $table->boolean('is_nemeric');
+            $table->boolean('is_numeric')->default(FALSE);
             $table->bigInteger('num_decimal_places');
             $table->timestamps();
         });
