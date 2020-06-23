@@ -1,32 +1,49 @@
 
 ## Coding challenge for Back-End Software Engineer
 
-### Purpose
-Aim of these tests are to,
-- evaluate your software engineering capability
-- evaluate your strength building and managing APIs
-- evaluate your strength inserting and querying databases
-- benchmark your technical experience and maturity
-- understand how you design and implement your solution
+### How to setup locally
+Instructions:
+- clone repo to local device
+- on the project directory, open terminal, excecute in your terminal `composer install`
+- after installing composer dependencies, setup your local MySQL server, then create your a test DB
+- copy project directory .env.example to .env, and then set local MySQL DB credentials and DB name
+- then, execute `php artisan migrate --seed` in your terminal
 
-### How you will be judged
-You will be scored on,
-- coding style, comments, and logging (20%)
-- design patterns and algorithms (20%)
-- solution design - structure and quality (20%)
-- use of source control and documentation (20%)
-- considerations for CI/CD/DevExp (10%)
-- some basic unit/functional/E2E tests (10%)
+## API Endpoint
 
-### How you will be judged
+##### # POST api/property
+ - Create new Property
 
-1. Create a new Laravel Project
-2. Setup a database using the ERD diagram below & seed with test data located at [Sample Test Data](https://bitbucket.org/idda/coding-challenges/src/88be221f75a1b108c9e5f7222906b2735c147ac8/resources/BackEndTest_TestData_v1.1.xlsx):
-<p align="left"><img src="https://bytebucket.org/idda/coding-challenges/raw/88be221f75a1b108c9e5f7222906b2735c147ac8/resources/BackEndTest_ERD_v1.PNG" width="400"></p>
+Payload:
+- suburb  => required|string
+- state   => required|string
+- country => required|string
 
-3. Add a new property
-- Add/Update an analytic to a property
-- Get all analytics for an inputted property
-- Get a summary of all property analytics for an inputted suburb (min value, max value, median value, percentage properties with a value, percentage properties without a value)
-- Get a summary of all property analytics for an inputted state (min value, max value, median value, percentage properties with a value, percentage properties without a value)
-- Get a summary of all property analytics for an inputted country (min value, max value, median value, percentage properties with a value, percentage properties without a value)
+##### # GET /api/property/{id}
+ - Get Property Record with Property Analytic & Analytic Type
+
+Payload: None
+
+##### # GET api/property/analytic/{id}
+ - Get Property Analytic with Property & Analytic Type
+
+Payload: NONE
+
+
+##### # PUT /api/property/analytic/{id}
+ - Update Property Analytic
+
+Payload:
+- property_id      => required|exists:properties,id|integer
+- analytic_type_id => required|exists:analytic_types,id|integer
+- value            => required|string
+
+##### # POST api/property/summary/all
+
+- Get All Summary by Property(suburb, state, country)
+
+Payload:
+- demography => ['required', Rule::in(['suburb', 'state', 'country']) ]
+- name       => 'required|string',
+
+note: i've included postman collection in the project root folder `Property API.postman_collection.json`
