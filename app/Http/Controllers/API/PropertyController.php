@@ -60,9 +60,32 @@ class PropertyController extends Controller
      * @param  \App\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function show(Property $property)
+    public function show($id)
     {
-        //
+        if (preg_match('/^\d+$/',$id)) {
+
+            $property = Property::find($id);
+
+            if($property) {
+
+                $new_data = clone $property;
+
+                $new_data->load(['propertyAnalytic' => function ($query) {
+                    $query->with('analytic');
+                }]);
+
+                return response()->json([
+                    'status' => 200,
+                    'data' => $new_data
+                ]);
+            }
+        }
+
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'There is no record that exist with that ID.'
+        ]);
     }
 
     /**

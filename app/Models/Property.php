@@ -38,4 +38,12 @@ class Property extends Model
             $model->guid = (string) Str::uuid();
         });
     }
+
+    /**
+     * Get the PropertyAnalytic for the Property.
+     */
+    public function propertyAnalytic()
+    {
+        return $this->hasMany('App\Models\PropertyAnalytic');
+    }
 }

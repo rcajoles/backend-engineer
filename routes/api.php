@@ -19,4 +19,20 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::post('/property', 'API\PropertyController@store');
+
+
+
+
+
+Route::prefix('property')->group(function () {
+
+    Route::get('/{id}', 'API\PropertyController@show');
+    Route::post('/', 'API\PropertyController@store');
+
+    Route::prefix('analytic')->group(function () {
+
+        Route::get('/{id}', 'API\PropertyAnalyticController@show');
+        Route::put('/{id}', 'API\PropertyAnalyticController@update');
+    });
+
+});
